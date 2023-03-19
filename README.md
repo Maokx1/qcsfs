@@ -1,14 +1,14 @@
 # QualityControlSystemForScrews #
 <p align="left">
     <img alt="Python version" src="https://img.shields.io/badge/python-3.10+-blue.svg">
-    <img alt="Python tests" src="https://github.com/Maokx1/qcsfs/actions/workflows/tests.yml/badge.svg?event=push">
+    <img alt="Python tests" src="https://github.com/Maokx1/qcsfs/tree/main/actions/workflows/tests.yml/badge.svg?event=push">
 </p>
 
 <p align="center">
-    <img alt="Main application" src="https://github.com/Maokx1/qcsfs/docs/imgs/gui.png">
+    <img alt="Main application" src="https://github.com/Maokx1/qcsfs/tree/main/docs/imgs/gui.png">
 </p>
 
-A Quality Control System For Screws (qcsfs), that checks the quality of screws using a [neural network](https://github.com/Maokx1/qcsfs/docs/neural_network.md), [classical image analysis methods](https://github.com/Maokx1/qcsfs/docs/measure_screws.md) and [SPC (Statistical Process Control)](https://github.com/Maokx1/qcsfs/docs/SPC.md). It is something like a simple simulation of a production line. Based on the results of the neural network, the system indicates which screws are correctly manufactured and which are defective. In a real life implementation, defective objects would be removed from the production line. To simulate this, I decided that only correctly manufactured screws would be subjected to further inspection, which meant measuring the screw length. Based on the aggregated results of the screw length measurements, control charts are displayed: mean values (X̄, X-bar) and standard deviation (S). All the results can be seen in the GUI of the application.
+A Quality Control System For Screws (qcsfs), that checks the quality of screws using a [neural network](https://github.com/Maokx1/qcsfs/tree/main/docs/neural_network.md), [classical image analysis methods](https://github.com/Maokx1/qcsfs/tree/main/docs/measure_screws.md) and [SPC (Statistical Process Control)](https://github.com/Maokx1/qcsfs/tree/main/docs/SPC.md). It is something like a simple simulation of a production line. Based on the results of the neural network, the system indicates which screws are correctly manufactured and which are defective. In a real life implementation, defective objects would be removed from the production line. To simulate this, I decided that only correctly manufactured screws would be subjected to further inspection, which meant measuring the screw length. Based on the aggregated results of the screw length measurements, control charts are displayed: mean values (X̄, X-bar) and standard deviation (S). All the results can be seen in the GUI of the application.
 
 ## Installation ##
 
@@ -27,10 +27,9 @@ PySimpleGUI ~= 4.60.4
 Pillow ~= 9.4.0
 PyYAML ~= 5.4.1
 ```
-Detailed requirements can be found in file [requirements.txt](https://github.com/Maokx1/qcsfs/requirements.txt).
+Detailed requirements can be found in file [requirements.txt](https://github.com/Maokx1/qcsfs/tree/main/requirements.txt).
 
-
-Currently, the only way to install this package is to clone [this repository](https://github.com/Maokx1/qcsfs). After that, I recommend building the project using:
+Currently, the only way to install this package is to clone [this repository](https://github.com/Maokx1/qcsfs/tree/main/). After that, I recommend building the project using:
 
 **Unix/macOS:**
 ```
@@ -94,7 +93,7 @@ It is possible that the package will appear on PyPI in the future, but before th
 
 ## Usage ##
 
-Before using the package, populate data/screws subdirectories with images of the screws. To do this, use this [collection](https://www.kaggle.com/datasets/thomasdubail/screwanomalies-detection) and read [neural_network.md](https://github.com/Maokx1/qcsfs/docs/neural_network.md) on how to do this correctly.
+Before using the package, populate data/screws subdirectories with images of the screws. To do this, use this [collection](https://www.kaggle.com/datasets/thomasdubail/screwanomalies-detection) and read [neural_network.md](https://github.com/Maokx1/qcsfs/tree/main/docs/neural_network.md) on how to do this correctly.
 ```
 from qcsfs.gui import app
 
