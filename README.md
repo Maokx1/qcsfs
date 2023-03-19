@@ -94,7 +94,7 @@ It is possible that the package will appear on PyPI in the future, but before th
 ## Usage ##
 
 Before using the package, populate data/screws subdirectories with images of the screws. To do this, use this [collection](https://www.kaggle.com/datasets/thomasdubail/screwanomalies-detection) and read [neural_network.md](https://github.com/Maokx1/qcsfs/blob/main/docs/neural_network.md) on how to do this correctly.
-```
+```python
 from qcsfs.gui import app
 
 app.main()
