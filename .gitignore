@@ -1,0 +1,16 @@
+/.vscode
+/.pytest_cache
+/env
+/build
+/dist
+
+**/__pycache__
+**/*.egg-info
+
+/data/models
+
+/data/screws
+/data/training_results/*.csv
+/data/training_results/*.log
+
+/data/measuring_results/*.csv
