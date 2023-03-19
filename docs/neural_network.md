@@ -68,7 +68,7 @@ One of the first decisions I made during implementation was to put the learning 
 
 To determine which model is the best I used the [f1-score](https://deepai.org/machine-learning-glossary-and-terms/f-score). I was able to get the following results:
 
-- | Precision | Recall | F1-Score | Support
+Classes | Precision | Recall | F1-Score | Support
 | :---:  | :---: | :---: | :---: | :---:|
 Good Screw(Class 0) | 1.00 | 0.92 | 0.96 | 150
 Damaged Screw(Class 1) | 0.93 | 1.00 | 0.96 | 150
