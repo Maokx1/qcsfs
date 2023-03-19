@@ -22,7 +22,11 @@ def read_yaml(file_path: str | os.PathLike) -> dict:
         file_path (str | os.PathLike): This should be the valid path to the yaml file.
     #### Returns:
         (dict): Dictionary with values from yaml config file.
+    #### Raises:
+        FileNotFoundError: When the yaml file does not exist or when passing a directory.
     """
+    if not os.path.isfile(file_path):
+        raise FileNotFoundError
     with open(file_path, 'r') as file_:
         return yaml.safe_load(file_)
 

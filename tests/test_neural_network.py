@@ -8,9 +8,8 @@ from . import (
 
 
 def test_read_yaml_no_file():
-    with pytest.raises(IsADirectoryError):
-        read_yaml('docs')
     with pytest.raises(FileNotFoundError):
+        read_yaml('docs')
         read_yaml('docs/f.yaml')
 
 
