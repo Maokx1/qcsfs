@@ -9,9 +9,9 @@ from . import (
 
 def test_read_yaml_no_file():
     with pytest.raises(IsADirectoryError):
-        read_yaml('tests')
+        read_yaml('docs')
     with pytest.raises(FileNotFoundError):
-        read_yaml('tests/f.yaml')
+        read_yaml('docs/f.yaml')
 
 
 def test_read_yaml():
