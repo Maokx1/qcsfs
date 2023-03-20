@@ -96,8 +96,8 @@ def create_model():
     if os.path.isfile('nn_config.yaml'):
         config_values = read_yaml('nn_config.yaml')
     else:
-        dir = os.path.dirname(__file__)
-        config_values = read_yaml(os.path.join(dir, 'nn_config.yaml'))
+        yaml_dir = os.path.dirname(__file__)
+        config_values = read_yaml(os.path.join(yaml_dir, 'nn_config.yaml'))
     
     try:
         labels = config_values['TRAINING']['LABELS'].split(',')

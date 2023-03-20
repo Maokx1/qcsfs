@@ -14,10 +14,10 @@ from PIL import Image
 import PySimpleGUI as sg
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from spc import spc_charts
-from neural_network import nn_training, nn_predicting
-from measure_screws import measure
 from gui import gui_utils
+from measure_screws import measure
+from neural_network import nn_training, nn_predicting
+from spc import spc_charts
 
 
 def main():
@@ -59,9 +59,9 @@ def main():
         if os.path.isfile('nn_config.yaml'):
             config_values = nn_training.read_yaml('nn_config.yaml')
         else:
-            dir = os.path.dirname(os.path.dirname(__file__))
+            top_dir = os.path.dirname(os.path.dirname(__file__))
             config_values = nn_training.read_yaml(
-                os.path.join(dir, 'neural_network/nn_config.yaml'))
+                os.path.join(top_dir, 'neural_network/nn_config.yaml'))
 
         try:
             labels = config_values['TRAINING']['LABELS'].replace(' ', '')\
@@ -86,7 +86,7 @@ def main():
             if event in ("Exit", sg.WIN_CLOSED):
                 break
 
-            if event in ('Change the measurement method'):
+            if event == 'Change the measurement method':
                 if METHOD_STATUS == 'Axis method':
                     METHOD_STATUS = 'Rectangle method'
                     window["-OUTPUT2-"].update(value=METHOD_STATUS)
@@ -98,7 +98,7 @@ def main():
                     if CAN_CHANGE_METHOD:
                         window.write_event_value('Measure', 0)
 
-            if event in ('Display image/Next image'):
+            if event == 'Display image/Next image':
                 # loading image to buffer
                 _curr = next(cycle_img_list)  # type: ignore
                 display_image = Image.open(_curr[0])  # type: ignore
@@ -108,8 +108,8 @@ def main():
                 window["-IMAGE1-"].update(data=bio.getvalue())
                 data = nn_training.get_data(_curr[0], labels,
                                             _curr[1], img_shape)  # type: ignore
-                l = 'Good' if data[0][1] == 0 else 'Damaged'
-                gt, predicted = nn_predicting.predict(model, np.asarray([data[0][0]]), l,  # type: ignore
+                label = 'Good' if data[0][1] == 0 else 'Damaged'
+                gt, predicted = nn_predicting.predict(model, np.asarray([data[0][0]]), label,  # type: ignore
                                                       labels, membership_boundary)  # type: ignore
                 print(gt, predicted)
                 window["-OUTPUT1-"].update(value=gt)
@@ -122,7 +122,7 @@ def main():
                     window["-IMAGE2-"].update(data='', size=(512, 512))
                     window["-OUTPUT4-"].update(value='')
 
-            if event in ('Measure'):
+            if event == 'Measure':
                 img = cv2.imread(_curr[0])  # type: ignore
                 img = cv2.resize(img, (512, 512))
                 if METHOD_STATUS == 'Axis method':
@@ -142,7 +142,7 @@ def main():
                                               size=(512, 512))
                     window["-OUTPUT4-"].update(value=round(length, 3))
 
-            if event in ('Show all measurements'):
+            if event == 'Show all measurements':
                 pd.set_option('display.max_rows', None)
                 if not gui_utils.is_result_present():
                     # Breaking this into 2 threads was ~37% slower.

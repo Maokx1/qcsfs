@@ -30,8 +30,8 @@ def is_data_present() -> bool:
     """
     dirs = ['data/screws/test/good', 'data/screws/test/damaged']
     extensions = ['.png', '.jpg', '.jpeg']
-    for dir in dirs:
-        for file in os.listdir(dir):
+    for imgs_dir in dirs:
+        for file in os.listdir(imgs_dir):
             if os.path.splitext(file)[-1].lower() in extensions:
                 return True
     return False
@@ -45,8 +45,8 @@ def is_model_present() -> bool:
     """
     dirs = ['data/models']
     extensions = ['.pb']
-    for dir in dirs:
-        for file in os.listdir(dir):
+    for model_dir in dirs:
+        for file in os.listdir(model_dir):
             if os.path.splitext(file)[-1].lower() in extensions:
                 return True
     return False
@@ -59,8 +59,8 @@ def is_result_present() -> bool:
         (bool)
     """
     dirs = ['data/measuring_results']
-    for dir in dirs:
-        if 'measurements_axis.csv' in os.listdir(dir) and 'measurements_rect.csv' in os.listdir(dir):
+    for csv_dir in dirs:
+        if 'measurements_axis.csv' in os.listdir(csv_dir) and 'measurements_rect.csv' in os.listdir(csv_dir):
             return True
     return False
 

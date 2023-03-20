@@ -33,8 +33,8 @@ def random_img(image_dir: str | os.PathLike) -> np.ndarray:
             imgs.append(element)
     if not imgs:
         raise Exception('NoImages')
-    random_img = random.choice(imgs)
-    img_ = cv2.imread(os.path.join(image_dir, random_img))
+    rand_img = random.choice(imgs)
+    img_ = cv2.imread(os.path.join(image_dir, rand_img))
     return cv2.resize(img_, (512, 512))
 
 
