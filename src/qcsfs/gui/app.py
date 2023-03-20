@@ -145,6 +145,8 @@ def main():
             if event in ('Show all measurements'):
                 pd.set_option('display.max_rows', None)
                 if not gui_utils.is_result_present():
+                    # Breaking this into 2 threads was ~37% slower.
+                    # This may be due to an implementation error or due to data racing (loading images from the same directory).
                     measure.log_measurements_rect('data/screws/test/good')
                     measure.log_measurements_axis('data/screws/test/good')
 

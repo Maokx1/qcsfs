@@ -95,10 +95,12 @@ def guard_popup() -> tuple[bool, bool]:
 
     font_size = 12
     col = [
-        [sg.Text('Have images of the screws been found?', font=('Arial', font_size))],
+        [sg.Text('Have images of the screws been found?',
+                 font=('Arial', font_size))],
         [sg.Text(key='-OUTPUT1-', justification='left',
                  font=('Arial', font_size), text=msg1)],
-        [sg.Text('Has a neural network model been found?', font=('Arial', font_size))],
+        [sg.Text('Has a neural network model been found?',
+                 font=('Arial', font_size))],
         [sg.Text(key='-OUTPUT2-', justification='left',
                  font=('Arial', font_size), text=msg2)],
         [sg.Text(key='-OUTPUT3-', text='To create neural network model click button bellow:',
