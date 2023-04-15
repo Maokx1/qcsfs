@@ -52,7 +52,7 @@ This allows you to freely use the package in your other projects, simply use the
 ```
 pip install /path/to/cloned/repo
 ```
-Ta paczka wymaga również następujących katalogów:
+This application requires the following directory:
 ```
 project_root_dir
 ┗ data
