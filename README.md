@@ -17,7 +17,7 @@ A Quality Control System For Screws (qcsfs), that checks the quality of screws u
 Python >= 3.10
 numpy ~= 1.24.2
 opencv-python ~= 4.7.0.72
-tensorflow ~= 2.11.0
+tensorflow ~= 2.11.1
 matplotlib ~= 3.7.1
 scikit-learn ~= 1.2.2
 scipy ~= 1.10.1
