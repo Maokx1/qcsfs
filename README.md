@@ -24,7 +24,7 @@ scipy ~= 1.10.1
 imutils ~= 0.5.4
 pandas ~= 1.5.3
 PySimpleGUI ~= 4.60.4
-Pillow ~= 9.4.0
+Pillow ~= 10.0.1
 PyYAML ~= 5.4.1
 ```
 Detailed requirements can be found in file [requirements.txt](https://github.com/Maokx1/qcsfs/blob/main/requirements.txt).
