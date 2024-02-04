@@ -29,7 +29,7 @@ dependencies = [
   "imutils==0.5.4",
   "pandas==1.5.3",
   "PySimpleGUI==4.60.4",
-  "Pillow==10.0.1",
+  "Pillow==10.2.0",
   "PyYAML==5.4.1",
 ]
 
