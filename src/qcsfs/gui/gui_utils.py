@@ -12,11 +12,11 @@ def create_img_list() -> list[tuple[str | os.PathLike, str]]:
         (list[tuple[str | os.PathLike, str]]): A shuffled list of paths to the images of the screws and their labels.
     """
     screws = []
-    paths = ('data/screws/test/good', 'data/screws/test/damaged')
+    paths = ("data/screws/test/good", "data/screws/test/damaged")
     for path_ in os.listdir(paths[0]):
-        screws.append((os.path.join(paths[0], path_), 'Good'))
+        screws.append((os.path.join(paths[0], path_), "Good"))
     for path_ in os.listdir(paths[1]):
-        screws.append((os.path.join(paths[1], path_), 'Damaged'))
+        screws.append((os.path.join(paths[1], path_), "Damaged"))
     random.shuffle(screws)
 
     return screws
@@ -28,8 +28,8 @@ def is_data_present() -> bool:
     #### Returns:
         (bool)
     """
-    dirs = ['data/screws/test/good', 'data/screws/test/damaged']
-    extensions = ['.png', '.jpg', '.jpeg']
+    dirs = ["data/screws/test/good", "data/screws/test/damaged"]
+    extensions = [".png", ".jpg", ".jpeg"]
     for imgs_dir in dirs:
         for file in os.listdir(imgs_dir):
             if os.path.splitext(file)[-1].lower() in extensions:
@@ -43,8 +43,8 @@ def is_model_present() -> bool:
     #### Returns:
         (bool)
     """
-    dirs = ['data/models']
-    extensions = ['.pb']
+    dirs = ["data/models"]
+    extensions = [".pb"]
     for model_dir in dirs:
         for file in os.listdir(model_dir):
             if os.path.splitext(file)[-1].lower() in extensions:
@@ -58,9 +58,11 @@ def is_result_present() -> bool:
     #### Returns:
         (bool)
     """
-    dirs = ['data/measuring_results']
+    dirs = ["data/measuring_results"]
     for csv_dir in dirs:
-        if 'measurements_axis.csv' in os.listdir(csv_dir) and 'measurements_rect.csv' in os.listdir(csv_dir):
+        if "measurements_axis.csv" in os.listdir(
+            csv_dir
+        ) and "measurements_rect.csv" in os.listdir(csv_dir):
             return True
     return False
 
@@ -76,64 +78,95 @@ def guard_popup() -> tuple[bool, bool]:
     is_model = is_model_present()
     train = False
     if is_data and is_model:
-        msg1 = 'Images found.'
-        msg2 = 'Model found. You can press the exit button.\nAfter a moment, the main application window\nshould appear.'
+        msg1 = "Images found."
+        msg2 = "Model found. You can press the exit button.\nAfter a moment, the main application window\nshould appear."
     elif is_data and not is_model:
-        msg1 = 'Images found.'
-        msg2 = 'No model found. Add model in the directory\ndata/models and'\
-            ' restart the app (or create model).\nIn case of further problems, see README.md.'
+        msg1 = "Images found."
+        msg2 = (
+            "No model found. Add model in the directory\ndata/models and"
+            " restart the app (or create model).\nIn case of further problems, see README.md."
+        )
         train = True
     elif not is_data and is_model:
-        msg1 = 'No images found. Add images in the directories\ndata/screws/good and/or data/screws/damaged and\n'\
-            'restart the app. In case of further problems,\nsee README.md.'
-        msg2 = 'Model found.'
+        msg1 = (
+            "No images found. Add images in the directories\ndata/screws/good and/or data/screws/damaged and\n"
+            "restart the app. In case of further problems,\nsee README.md."
+        )
+        msg2 = "Model found."
     else:
-        msg1 = 'No images found. Add images in the directories\ndata/screws/good and/or data/screws/damaged and\n'\
-            'restart the app. In case of further problems,\nsee README.md.'
-        msg2 = 'No model found. Add model in the directory\ndata/models and'\
-            ' restart the app. In case of further\nproblems, see README.md.'
+        msg1 = (
+            "No images found. Add images in the directories\ndata/screws/good and/or data/screws/damaged and\n"
+            "restart the app. In case of further problems,\nsee README.md."
+        )
+        msg2 = (
+            "No model found. Add model in the directory\ndata/models and"
+            " restart the app. In case of further\nproblems, see README.md."
+        )
 
     font_size = 12
     col = [
-        [sg.Text('Have images of the screws been found?',
-                 font=('Arial', font_size))],
-        [sg.Text(key='-OUTPUT1-', justification='left',
-                 font=('Arial', font_size), text=msg1)],
-        [sg.Text('Has a neural network model been found?',
-                 font=('Arial', font_size))],
-        [sg.Text(key='-OUTPUT2-', justification='left',
-                 font=('Arial', font_size), text=msg2)],
-        [sg.Text(key='-OUTPUT3-', text='To create neural network model click button bellow:',
-                 font=('Arial', font_size), visible=train)],
-        [sg.Button(button_text='Create model', key='-BUTTON1-',
-                   font=('Arial', font_size), visible=train)],
-        [sg.Exit('Exit', font=('Arial', font_size))]
+        [sg.Text("Have images of the screws been found?", font=("Arial", font_size))],
+        [
+            sg.Text(
+                key="-OUTPUT1-",
+                justification="left",
+                font=("Arial", font_size),
+                text=msg1,
+            )
+        ],
+        [sg.Text("Has a neural network model been found?", font=("Arial", font_size))],
+        [
+            sg.Text(
+                key="-OUTPUT2-",
+                justification="left",
+                font=("Arial", font_size),
+                text=msg2,
+            )
+        ],
+        [
+            sg.Text(
+                key="-OUTPUT3-",
+                text="To create neural network model click button bellow:",
+                font=("Arial", font_size),
+                visible=train,
+            )
+        ],
+        [
+            sg.Button(
+                button_text="Create model",
+                key="-BUTTON1-",
+                font=("Arial", font_size),
+                visible=train,
+            )
+        ],
+        [sg.Exit("Exit", font=("Arial", font_size))],
     ]
     pop_layout = [
         [sg.VPush()],
-        [sg.Push(), sg.Column(col,  element_justification='c'), sg.Push()],
-        [sg.VPush()]
+        [sg.Push(), sg.Column(col, element_justification="c"), sg.Push()],
+        [sg.VPush()],
     ]
 
-    start_popup = sg.Window("Checking...", pop_layout, margins=(10, 10),
-                            size=(450, 350), finalize=True)
+    start_popup = sg.Window(
+        "Checking...", pop_layout, margins=(10, 10), size=(450, 350), finalize=True
+    )
 
     while True:
         event, _ = start_popup.read()  # type: ignore
 
-        if event in ('Exit', sg.WIN_CLOSED):
+        if event in ("Exit", sg.WIN_CLOSED):
             break
 
-        if event in '-BUTTON1-':
-            msg = 'Creating neural network model in progress. See terminal output for more information.'
-            start_popup['-BUTTON1-'].update(visible=False)
-            start_popup['-OUTPUT2-'].update(value=msg)
-            start_popup['-OUTPUT3-'].update(visible=False)
+        if event in "-BUTTON1-":
+            msg = "Creating neural network model in progress. See terminal output for more information."
+            start_popup["-BUTTON1-"].update(visible=False)
+            start_popup["-OUTPUT2-"].update(value=msg)
+            start_popup["-OUTPUT3-"].update(visible=False)
             nn_training.create_model()
             is_model = is_model_present()
             if is_model:
-                msg = 'Model found. You can press the exit button.\nAfter a moment, the main application window\nshould appear.'
-                start_popup['-OUTPUT2-'].update(value=msg)
+                msg = "Model found. You can press the exit button.\nAfter a moment, the main application window\nshould appear."
+                start_popup["-OUTPUT2-"].update(value=msg)
 
     start_popup.close()
 

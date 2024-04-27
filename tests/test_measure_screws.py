@@ -7,23 +7,23 @@ from . import (
     measure_with_rect,
     log_measurements_rect,
     measure_with_axis,
-    log_measurements_axis
+    log_measurements_axis,
 )
 
 
 def test_random_img_no_img():
-    with pytest.raises(Exception, match='NoImages'):
-        random_img('tests')
+    with pytest.raises(Exception, match="NoImages"):
+        random_img("tests")
 
 
 def test_random_img():
-    assert type(random_img('data/sample_screws/good')) == np.ndarray
+    assert type(random_img("data/sample_screws/good")) == np.ndarray
 
 
 @pytest.fixture
 def sample_image() -> np.ndarray:
-    """ Returns sample image from good sample screws. """
-    return random_img('data/sample_screws/good')
+    """Returns sample image from good sample screws."""
+    return random_img("data/sample_screws/good")
 
 
 def test_get_contour(sample_image):
@@ -32,7 +32,7 @@ def test_get_contour(sample_image):
 
 @pytest.fixture
 def rect_result(sample_image) -> tuple[np.ndarray, float]:
-    """ Returns results of measuring screw with rectangle method. """
+    """Returns results of measuring screw with rectangle method."""
     return measure_with_rect(sample_image)
 
 
@@ -49,7 +49,7 @@ def test_measure_with_rect_length(rect_result):
 
 @pytest.fixture
 def axis_result(sample_image) -> tuple[np.ndarray, int]:
-    """ Returns results of measuring screw with axis method. """
+    """Returns results of measuring screw with axis method."""
     return measure_with_axis(sample_image)
 
 
@@ -65,10 +65,10 @@ def test_measure_with_axis_length(axis_result):
 
 
 def test_log_measurments_rect_no_imgs():
-    with pytest.raises(Exception, match='NoImages'):
-        log_measurements_rect('tests')
+    with pytest.raises(Exception, match="NoImages"):
+        log_measurements_rect("tests")
 
 
 def test_log_measurments_axis_no_imgs():
-    with pytest.raises(Exception, match='NoImages'):
-        log_measurements_axis('tests')
+    with pytest.raises(Exception, match="NoImages"):
+        log_measurements_axis("tests")

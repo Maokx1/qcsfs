@@ -26,23 +26,27 @@ def random_img(image_dir: str | os.PathLike) -> np.ndarray:
     #### Raises:
 
     """
-    extensions = ['.png', '.jpg', '.jpeg']
+    extensions = [".png", ".jpg", ".jpeg"]
     imgs = []
     for element in os.listdir(image_dir):
         if os.path.splitext(element)[-1].lower() in extensions:
             imgs.append(element)
     if not imgs:
-        raise Exception('NoImages')
+        raise Exception("NoImages")
     rand_img = random.choice(imgs)
     img_ = cv2.imread(os.path.join(image_dir, rand_img))
     return cv2.resize(img_, (512, 512))
 
 
-def get_contours(image_: np.ndarray, threshold: list[int] = [50, 70],
-                 show_canny: bool = False, min_area: int = 1000) -> list[np.ndarray]:
+def get_contours(
+    image_: np.ndarray,
+    threshold: list[int] = [50, 70],
+    show_canny: bool = False,
+    min_area: int = 1000,
+) -> list[np.ndarray]:
     """
     This function determines the contours of an object.
-    It copies the original image, so that it is not modified. 
+    It copies the original image, so that it is not modified.
     #### Args:
         image (np.ndarray): Image of the screw.
         threshold (list[int]): List containing lower and upper bound of threshold.
@@ -61,7 +65,7 @@ def get_contours(image_: np.ndarray, threshold: list[int] = [50, 70],
     # using canny algorithm to find edges
     canny_image = cv2.Canny(denoised_image, threshold[0], threshold[1])
     if show_canny:
-        cv2.imshow('CannyImage', canny_image)
+        cv2.imshow("CannyImage", canny_image)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
     dilated_image = cv2.dilate(canny_image, np.ones((5, 5)), iterations=3)
@@ -70,8 +74,9 @@ def get_contours(image_: np.ndarray, threshold: list[int] = [50, 70],
     # https://docs.opencv.org/3.4/d9/d8b/tutorial_py_contours_hierarchy.html
     # cv2.CHAIN_APPROX_SIMPLE -> compressing segments and leaves only endpoints (rectangle is encoded as 4 points)
     # https://docs.opencv.org/3.4/d3/dc0/group__imgproc__shape.html#gga4303f45752694956374734a03c54d5ffa5f2883048e654999209f88ba04c302f5
-    contours, _ = cv2.findContours(eroded_image, cv2.RETR_EXTERNAL,
-                                   cv2.CHAIN_APPROX_SIMPLE)
+    contours, _ = cv2.findContours(
+        eroded_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
+    )
     final_contours = []
     # getting rid of contours with small surface area (potential noise)
     for con in contours:
@@ -85,8 +90,8 @@ def measure_with_rect(image_: np.ndarray) -> tuple[np.ndarray, float]:
     """
     This function measures the screw using the rectangle method.
     Basically it determines box with the smallest surface area, that fits the whole screw.
-    It copies the original image, so that it is not modified. 
-    #### Args: 
+    It copies the original image, so that it is not modified.
+    #### Args:
         image (np.ndarray): Image of the screw.
     #### Returns:
         (tuple[np.ndarray, int]): Image of boxed screw and its length.
@@ -115,7 +120,13 @@ def measure_with_rect(image_: np.ndarray) -> tuple[np.ndarray, float]:
 
     top_left, top_right, bottom_right, bottom_left = box
     # Boxed screw, contourIdx=-1 means: take all points and connect them
-    cv2.polylines(copy_image, [box], True, (0, 255, 0), 2,)
+    cv2.polylines(
+        copy_image,
+        [box],
+        True,
+        (0, 255, 0),
+        2,
+    )
     # Calculating midpoints between vertices to mark potential main axis of the screw
     top_midpoint = midpoint(top_left, top_right)
     bottom_midpoint = midpoint(bottom_left, bottom_right)
@@ -129,9 +140,15 @@ def measure_with_rect(image_: np.ndarray) -> tuple[np.ndarray, float]:
         top_midpoint = top_midpoint.astype(np.int32)
         bottom_midpoint = bottom_midpoint.astype(np.int32)
         cv2.line(copy_image, top_midpoint, bottom_midpoint, (255, 0, 255), 2)
-        cv2.putText(copy_image, f"{top_bottom_distance:.3f}",
-                    (105, 50), cv2.FONT_HERSHEY_SIMPLEX,
-                    0.65, (255, 0, 255), 2)
+        cv2.putText(
+            copy_image,
+            f"{top_bottom_distance:.3f}",
+            (105, 50),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.65,
+            (255, 0, 255),
+            2,
+        )
         cv2.circle(copy_image, top_midpoint, 4, (0, 20, 50), -1)
         cv2.circle(copy_image, bottom_midpoint, 4, (0, 20, 50), -1)
 
@@ -140,21 +157,29 @@ def measure_with_rect(image_: np.ndarray) -> tuple[np.ndarray, float]:
         left_midpoint = left_midpoint.astype(np.int32)
         right_midpoint = right_midpoint.astype(np.int32)
         cv2.line(copy_image, left_midpoint, right_midpoint, (255, 0, 255), 2)
-        cv2.putText(copy_image, f"{left_right_distance:.3f}",
-                    (105, 50), cv2.FONT_HERSHEY_SIMPLEX,
-                    0.65, (255, 0, 255), 2)
+        cv2.putText(
+            copy_image,
+            f"{left_right_distance:.3f}",
+            (105, 50),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.65,
+            (255, 0, 255),
+            2,
+        )
         cv2.circle(copy_image, left_midpoint, 4, (0, 20, 50), -1)
         cv2.circle(copy_image, right_midpoint, 4, (0, 20, 50), -1)
 
         return copy_image, left_right_distance
 
 
-def measure_with_axis(image_: np.ndarray, show_axis: bool = False) -> tuple[np.ndarray, int]:
+def measure_with_axis(
+    image_: np.ndarray, show_axis: bool = False
+) -> tuple[np.ndarray, int]:
     """
     This function measures the screw using the axis method.
     Basically it rotates the screw into the vertical position and measures the screw defined by its contour.
-    It copies the original image, so that it is not modified. 
-    #### Args: 
+    It copies the original image, so that it is not modified.
+    #### Args:
         image (np.ndarray): Image of the screw.
         show_axis (bool): If true, a window will appear showing image of screw with marked main axis.
     #### Returns:
@@ -162,8 +187,11 @@ def measure_with_axis(image_: np.ndarray, show_axis: bool = False) -> tuple[np.n
     """
     # A vector with point approximating contour of the screw
     final_contours = get_contours(image_, show_canny=False)
-    data_pts = final_contours[0].reshape(
-        final_contours[0].shape[0], final_contours[0].shape[2]).astype(np.float64)
+    data_pts = (
+        final_contours[0]
+        .reshape(final_contours[0].shape[0], final_contours[0].shape[2])
+        .astype(np.float64)
+    )
     # If screw contour is determined correctly direction of one of eigenvectors
     # is the same as direction of main axis
     mean, eigenvectors, eigenvalues = cv2.PCACompute2(data_pts, np.empty(0))
@@ -175,7 +203,7 @@ def measure_with_axis(image_: np.ndarray, show_axis: bool = False) -> tuple[np.n
     # determining 2nd point to construct axis
     p1 = (
         int(center[0] + eigenvectors[0, 0] * eigenvalues[0, 0]),
-        int(center[1] + eigenvectors[0, 1] * eigenvalues[0, 0])
+        int(center[1] + eigenvectors[0, 1] * eigenvalues[0, 0]),
     )
     if show_axis:
         ax_img = image_.copy()
@@ -183,19 +211,20 @@ def measure_with_axis(image_: np.ndarray, show_axis: bool = False) -> tuple[np.n
         cv2.line(ax_img, p1, center, (0, 200, 0), 1, cv2.LINE_AA)
         # marking geometric center with a red dot
         cv2.circle(ax_img, center, 3, (0, 0, 255), -1)
-        cv2.imshow('Main axis of an object', ax_img)
+        cv2.imshow("Main axis of an object", ax_img)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
     tilted_image = image_.copy()
     # cv2.warpAffine expects shape in format (length, height)
     shape = (tilted_image.shape[1], tilted_image.shape[0])
-    rotation_matrix = cv2.getRotationMatrix2D(center=(shape[0] / 2, shape[1] / 2),
-                                              angle=tilt, scale=1)
-    tilted_image = cv2.warpAffine(src=tilted_image,
-                                  M=rotation_matrix, dsize=shape)
-    final_contours = get_contours(tilted_image, threshold=[50, 70],
-                                  show_canny=False, min_area=1000)
+    rotation_matrix = cv2.getRotationMatrix2D(
+        center=(shape[0] / 2, shape[1] / 2), angle=tilt, scale=1
+    )
+    tilted_image = cv2.warpAffine(src=tilted_image, M=rotation_matrix, dsize=shape)
+    final_contours = get_contours(
+        tilted_image, threshold=[50, 70], show_canny=False, min_area=1000
+    )
 
     min_y, min_x, _ = tilted_image.shape
     # computing the bounding box for the contour, and drawing it on the tilted_image
@@ -204,16 +233,25 @@ def measure_with_axis(image_: np.ndarray, show_axis: bool = False) -> tuple[np.n
     min_y, max_y = min(y, min_y), max(y + h, 0)
     final_image = tilted_image[min_y:max_y, min_x:max_x]
     length = final_image.shape[0]
-    cv2.putText(final_image, f"{length}", (40, 40), cv2.FONT_HERSHEY_SIMPLEX,
-                0.65, (255, 0, 255), 2)  # marking screw length in pink
+    cv2.putText(
+        final_image,
+        f"{length}",
+        (40, 40),
+        cv2.FONT_HERSHEY_SIMPLEX,
+        0.65,
+        (255, 0, 255),
+        2,
+    )  # marking screw length in pink
 
     return final_image, length
 
 
-def rect_method(image_: np.ndarray, show_contour: bool = False) -> tuple[np.ndarray, float]:
+def rect_method(
+    image_: np.ndarray, show_contour: bool = False
+) -> tuple[np.ndarray, float]:
     """
     This function measures screw using rectangle method.
-    It copies the original image, so that it is not modified. 
+    It copies the original image, so that it is not modified.
     #### Args:
         image_ (np.ndarray): Image of the screw.
         show_image (bool): If true, two windows will appear showing original image and image of detected contours.
@@ -222,26 +260,32 @@ def rect_method(image_: np.ndarray, show_contour: bool = False) -> tuple[np.ndar
     """
     copy_image = image_.copy()
     if show_contour:
-        cv2.imshow('OriginalImage', image_)
+        cv2.imshow("OriginalImage", image_)
         contoured_image = image_.copy()
         # Contouring screw
         contours = get_contours(image_, show_canny=False)
         if len(contours) != 0:
             for con in contours:
-                cv2.polylines(img=contoured_image,
-                              pts=[con], isClosed=True,
-                              color=(0, 0, 0), thickness=2)
+                cv2.polylines(
+                    img=contoured_image,
+                    pts=[con],
+                    isClosed=True,
+                    color=(0, 0, 0),
+                    thickness=2,
+                )
         # Showing contoured screw
-        cv2.imshow('Contoured screw', contoured_image)
+        cv2.imshow("Contoured screw", contoured_image)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
     return measure_with_rect(copy_image)
 
 
-def axis_method(image_: np.ndarray, show_contour: bool = False) -> tuple[np.ndarray, int]:
+def axis_method(
+    image_: np.ndarray, show_contour: bool = False
+) -> tuple[np.ndarray, int]:
     """
     This function measures screw using axis method.
-    It copies the original image, so that it is not modified. 
+    It copies the original image, so that it is not modified.
     #### Args:
         image_ (np.ndarray): Image of the screw.
         show_image (bool): If true, two windows will appear showing original image and image of detected contours.
@@ -250,15 +294,19 @@ def axis_method(image_: np.ndarray, show_contour: bool = False) -> tuple[np.ndar
     """
     copy_image = image_.copy()
     if show_contour:
-        cv2.imshow('OriginalImage', image_)
+        cv2.imshow("OriginalImage", image_)
         contoured_image = image_.copy()
         contours = get_contours(contoured_image, show_canny=False)
         if len(contours) != 0:
             for con in contours:
-                cv2.polylines(img=contoured_image,
-                              pts=[con], isClosed=True,
-                              color=(0, 0, 0), thickness=2)
-        cv2.imshow('Contoured screw', contoured_image)
+                cv2.polylines(
+                    img=contoured_image,
+                    pts=[con],
+                    isClosed=True,
+                    color=(0, 0, 0),
+                    thickness=2,
+                )
+        cv2.imshow("Contoured screw", contoured_image)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
     return measure_with_axis(copy_image, show_axis=False)
@@ -271,24 +319,23 @@ def log_measurements_rect(path_: str | os.PathLike):
     #### Args:
         path_ (str | os.PathLike): A valid path to the images directory.
     """
-    csv_path = 'data/measuring_results/measurements_rect.csv'
-    extensions = ['.png', '.jpg', '.jpeg']
+    csv_path = "data/measuring_results/measurements_rect.csv"
+    extensions = [".png", ".jpg", ".jpeg"]
     imgs = []
     for element in os.listdir(path_):
         if os.path.splitext(element)[-1].lower() in extensions:
             imgs.append(element)
     if not imgs:
-        raise Exception('NoImages')
+        raise Exception("NoImages")
     else:
-        with open(csv_path, 'w', encoding='UTF8', newline='') as f:
+        with open(csv_path, "w", encoding="UTF8", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(['path', 'length'])
+            writer.writerow(["path", "length"])
             for image_name in os.listdir(path_):
                 image_ = cv2.imread(os.path.join(path_, image_name))
                 image_ = cv2.resize(image_, (512, 512))
                 _, length = measure_with_rect(image_)
-                writer.writerow(
-                    [os.path.join(path_, image_name), round(length, 3)])
+                writer.writerow([os.path.join(path_, image_name), round(length, 3)])
 
 
 def log_measurements_axis(path_: str | os.PathLike):
@@ -298,18 +345,18 @@ def log_measurements_axis(path_: str | os.PathLike):
     #### Args:
         path_ (str | os.PathLike): A valid path to the images directory.
     """
-    csv_path = 'data/measuring_results/measurements_axis.csv'
-    extensions = ['.png', '.jpg', '.jpeg']
+    csv_path = "data/measuring_results/measurements_axis.csv"
+    extensions = [".png", ".jpg", ".jpeg"]
     imgs = []
     for element in os.listdir(path_):
         if os.path.splitext(element)[-1].lower() in extensions:
             imgs.append(element)
     if not imgs:
-        raise Exception('NoImages')
+        raise Exception("NoImages")
     else:
-        with open(csv_path, 'w', encoding='UTF8', newline='') as f:
+        with open(csv_path, "w", encoding="UTF8", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(['path', 'length'])
+            writer.writerow(["path", "length"])
             for image_name in imgs:
                 image_ = cv2.imread(os.path.join(path_, image_name))
                 image_ = cv2.resize(image_, (512, 512))
