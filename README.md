@@ -26,7 +26,7 @@ scipy ~= 1.10.1
 imutils ~= 0.5.4
 pandas ~= 1.5.3
 PySimpleGUI ~= 4.60.4
-Pillow ~= 10.3.0
+Pillow >= 10.3.0
 PyYAML ~= 6.0.1
 ```
 
