@@ -15,22 +15,9 @@ A Quality Control System For Screws (qcsfs), that checks the quality of screws u
 
 ### Requirements ###
 
-```
-Python >= 3.10
-numpy ~= 1.24.2
-opencv-python ~= 4.7.0.72
-tensorflow ~= 2.11.1
-matplotlib ~= 3.7.1
-scikit-learn ~= 1.2.2
-scipy ~= 1.10.1
-imutils ~= 0.5.4
-pandas ~= 1.5.3
-PySimpleGUI ~= 4.60.4
-Pillow >= 10.3.0
-PyYAML ~= 6.0.1
-```
+`Python >= 3.10`
 
-Detailed requirements can be found in file [requirements.txt](https://github.com/Maokx1/qcsfs/blob/main/requirements.txt).
+Detailed requirements can be found in file [pyproject.toml](https://github.com/Maokx1/qcsfs/blob/main/pyproject.toml).
 
 Currently, the only way to install this package is to clone [this repository](https://github.com/Maokx1/qcsfs). After that, I recommend building the project using:
 
