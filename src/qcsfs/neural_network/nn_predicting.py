@@ -10,20 +10,25 @@ def load_model(model_path: str | os.PathLike):
     """
     This functions loads saved model.
     #### Args:
-        model_path (str | os.PathLike): This should be a valid path to the saved model.
+        model_path (str | os.PathLike): This should be a valid path to the saved model and it should points to .keras file.
     #### Returns:
         Object of the loaded model.
     """
     return tf.keras.models.load_model(model_path)
 
 
-def predict(model_, test_image: np.ndarray, true_label: str, labels_: list[str],
-            membership_boundary_: float) -> tuple[str, str]:
+def predict(
+    model_,
+    test_image: np.ndarray,
+    true_label: str,
+    labels_: list[str],
+    membership_boundary_: float,
+) -> tuple[str, str]:
     """
     This function uses existing model to predict image label.
     #### Args:
         model_ : Loaded model object.
-        test_image (np.ndarray): Input image of a size that matches the input of an existing neural network model. 
+        test_image (np.ndarray): Input image of a size that matches the input of an existing neural network model.
         By default, it must be 224x224 pixels.
         true_label (str): Ground truth label.
         labels_ (list[str]): List of possible labels.
