@@ -24,5 +24,5 @@ def test_get_data_no_imgs():
 
 
 def test_load_model_no_model():
-    with pytest.raises(OSError):
+    with pytest.raises(ValueError):
         load_model("tests.keras")
