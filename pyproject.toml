@@ -8,16 +8,21 @@ version = "1.0.0"
 description = "A Quality Control System For Screws (qcsfs), that checks the quality of screws using a neural network, classical image analysis methods and SPC."
 readme = "README.md"
 requires-python = ">=3.10"
-license = {text = "MIT"}
-keywords = ["Quality Control System", "Neural Network", "tensorflow", "MobileNetV2", "OpenCV", "PySimpleGUI"]
-authors = [
-    {name = "Maokx1", email = "4mprog@gmail.com"}
+license = { text = "MIT" }
+keywords = [
+  "Quality Control System",
+  "Neural Network",
+  "tensorflow",
+  "MobileNetV2",
+  "OpenCV",
+  "PySimpleGUI",
 ]
+authors = [{ name = "Maokx1", email = "4mprog@gmail.com" }]
 classifiers = [
-    "Development Status :: 3 - Alpha",
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3.10",
-    "Operating System :: OS Independent"
+  "Development Status :: 3 - Alpha",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3.10",
+  "Operating System :: OS Independent",
 ]
 dependencies = [
   "numpy==1.24.2",
@@ -29,8 +34,8 @@ dependencies = [
   "imutils==0.5.4",
   "pandas==1.5.3",
   "PySimpleGUI==4.60.4",
-  "Pillow==10.2.0",
-  "PyYAML==5.4.1",
+  "Pillow==10.3.0",
+  "PyYAML==6.0.1",
 ]
 
 [project.optional-dependencies]
