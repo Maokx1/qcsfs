@@ -1,4 +1,5 @@
 # QualityControlSystemForScrews #
+
 <p align="left">
     <img alt="Python version" src="https://img.shields.io/badge/python-3.10-blue.svg">
     <img alt="Python tests" src="https://github.com/Maokx1/qcsfs/actions/workflows/tests.yaml/badge.svg?event=push">
@@ -13,6 +14,7 @@ A Quality Control System For Screws (qcsfs), that checks the quality of screws u
 ## Installation ##
 
 ### Requirements ###
+
 ```
 Python >= 3.10
 numpy ~= 1.24.2
@@ -24,22 +26,25 @@ scipy ~= 1.10.1
 imutils ~= 0.5.4
 pandas ~= 1.5.3
 PySimpleGUI ~= 4.60.4
-Pillow ~= 10.2.0
-PyYAML ~= 5.4.1
+Pillow ~= 10.3.0
+PyYAML ~= 6.0.1
 ```
+
 Detailed requirements can be found in file [requirements.txt](https://github.com/Maokx1/qcsfs/blob/main/requirements.txt).
 
 Currently, the only way to install this package is to clone [this repository](https://github.com/Maokx1/qcsfs). After that, I recommend building the project using:
 
 **Unix/macOS:**
+
 ```
 cd /path/to/cloned/repo/
 python3 -m pip install --upgrade pip
 python3 -m pip install --upgrade build
 python3 -m build
-``` 
+```
 
 **Windows:**
+
 ```
 cd /path/to/cloned/repo/
 py -m pip install --upgrade pip
@@ -52,7 +57,9 @@ This allows you to freely use the package in your other projects, simply use the
 ```
 pip install /path/to/cloned/repo
 ```
+
 This application requires the following directory:
+
 ```
 project_root_dir
 ┗ data
@@ -72,16 +79,19 @@ project_root_dir
 ```
 
 Once the package has been successfully installed, a terminal command can be used to create such a directory:
+
 ```
 qcsfs_create_folders
 ```
 
-The package also requires a configuration file for the neural network. Create one using the command: 
+The package also requires a configuration file for the neural network. Create one using the command:
+
 ```
 qcsfs_create_yaml
 ```
 
 It is possible that the package will appear on PyPI in the future, but before that happens, it would be necessary to:
+
 * add the option to download a sample dataset and sample neural network model,
 * add a data augmentation function,
 * add control of neural network learning parameters from the GUI,
@@ -94,6 +104,7 @@ It is possible that the package will appear on PyPI in the future, but before th
 ## Usage ##
 
 Before using the package, populate data/screws subdirectories with images of the screws. To do this, use this [collection](https://www.kaggle.com/datasets/thomasdubail/screwanomalies-detection) and read [neural_network.md](https://github.com/Maokx1/qcsfs/blob/main/docs/neural_network.md) on how to do this correctly.
+
 ```python
 from qcsfs.gui import app
 
