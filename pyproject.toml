@@ -16,6 +16,8 @@ keywords = [
   "MobileNetV2",
   "OpenCV",
   "PySimpleGUI",
+  "SPC",
+  "Statistical Process Control",
 ]
 authors = [{ name = "Maokx1", email = "4mprog@gmail.com" }]
 classifiers = [
