@@ -7,7 +7,7 @@ name = "qcsfs"
 version = "1.0.0"
 description = "A Quality Control System For Screws (qcsfs), that checks the quality of screws using a neural network, classical image analysis methods and SPC."
 readme = "README.md"
-requires-python = "^3.10"
+requires-python = ">=3.10"
 license = { text = "MIT" }
 keywords = [
   "Quality Control System",
