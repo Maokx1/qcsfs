@@ -2,6 +2,8 @@
 
 <p align="left">
     <img alt="Python version" src="https://img.shields.io/badge/python-3.10-blue.svg">
+    <img alt="Python version" src="https://img.shields.io/badge/python-3.11-blue.svg">
+    <img alt="Python version" src="https://img.shields.io/badge/python-3.12-blue.svg">
     <img alt="Python tests" src="https://github.com/Maokx1/qcsfs/actions/workflows/tests.yaml/badge.svg?event=push">
 </p>
 
