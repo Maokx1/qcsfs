@@ -7,7 +7,7 @@ name = "qcsfs"
 version = "1.0.0"
 description = "A Quality Control System For Screws (qcsfs), that checks the quality of screws using a neural network, classical image analysis methods and SPC."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = "^3.10"
 license = { text = "MIT" }
 keywords = [
   "Quality Control System",
@@ -27,14 +27,14 @@ classifiers = [
   "Operating System :: OS Independent",
 ]
 dependencies = [
-  "numpy==1.24.2",
-  "opencv-python==4.7.0.72",
-  "tensorflow==2.11.1",
-  "matplotlib==3.7.1",
-  "scikit-learn==1.2.2",
-  "scipy==1.10.1",
+  "numpy==1.26.4",
+  "opencv-python==4.9.0.80",
+  "tensorflow==2.16.1",
+  "matplotlib==3.8.4",
+  "scikit-learn==1.4.2",
+  "scipy==1.13.0",
   "imutils==0.5.4",
-  "pandas==1.5.3",
+  "pandas==2.2.2",
   "PySimpleGUI==4.60.4",
   "Pillow>=10.3.0",
   "PyYAML==6.0.1",
